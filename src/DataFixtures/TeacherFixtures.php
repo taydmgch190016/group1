@@ -17,6 +17,7 @@ class TeacherFixtures extends Fixture
             $teacher -> setPhone("0123456789");
             $teacher -> setAddress("Ha Noi $i");
             $teacher -> setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/001-teacher.svg/2048px-001-teacher.svg.png");
+            $manager -> persist($teacher);
         }
 
         $manager->flush();
