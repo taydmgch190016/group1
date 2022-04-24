@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Teacher;
+use App\Form\TeacherType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TeacherController extends AbstractController
@@ -48,5 +50,37 @@ class TeacherController extends AbstractController
             $this->addFlash("Success", "Delete teacher succeed !");
         }
         return $this->redirectToRoute("teacher_index");
+    }
+    #[Route('/add', name: 'add_teacher')]
+    public function teacherAdd(Request $request, ManagerRegistry $registry){
+        $teacher = new Teacher;
+        $form = $this -> createForm(TeacherType::class, $teacher);
+        $form->handleRequest($request);
+        if($form-> isSubmitted() && $form -> isValid()){
+            $manager = $registry->getManager();
+            $manager ->persist($teacher);
+            $manager ->flush();
+            $this -> addFlash("Success","Add teacher succeed");
+            return $this->redirectToRoute('teacher_index');
+        }
+        return $this ->renderForm('teacher/add.html.twig',
+        ['teacherForm'=>$form]);
+    }
+    #[Route('/edit/{id}', name: 'teacher_edit')]
+    public function teacherEdit(Request $request, ManagerRegistry $registry, $id) {
+        $teacher = $registry->getRepository(Teacher::class)->find($id);
+        $form = $this->createForm(TeacherType::class, $teacher);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $registry->getManager();
+            $manager->persist($teacher);
+            $manager->flush();
+            $this->addFlash("Success", "Edit teacher succeed !");
+            return $this->redirectToRoute('teacher_index');
+        }
+        return $this->renderForm('teacher/edit.html.twig',
+                                [
+                                    'teacherForm' => $form
+                                ]);
     }
 }
