@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Course;
 use App\Entity\Student;
 use App\Entity\Classroom;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +24,13 @@ class ClassType extends AbstractType
                 'choice_label' => "name",
                 'multiple' => true,
                 'expanded'=> false
+            ])
+            ->add('course',EntityType::class,[
+                'label'=>"Course",
+                'class'=> Course::class,
+                'choice_label'=>"name",
+                'multiple'=>true,
+                'expanded'=>false
             ])
         ;
     }
