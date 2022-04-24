@@ -39,7 +39,7 @@
                     <li class="nav-item active">
                         <a class="nav-link text-white" aria-current="page" href="{{path('home_page')}}">Home</a>
                     </li>
-                    {# {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER')%} #}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER')%}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{path('student_index')}}">Student</a>
 
@@ -54,9 +54,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="">Course</a>
                     </li>
-                    {# {% endif %} #}
+                    {% endif %}
                 </ul>
-                    {# {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <span class="mr-6 text-white">Admin</span>
                      {% elseif is_granted('ROLE_STAFF') %}
                      <span class="mr-6 text-white">Staff</span>
@@ -64,25 +64,25 @@
                         <span class="mr-6 text-white">User</span>
                      {% else %}
                        <span class="mr-6 text-white">Not logged in!</span>
-                    {% endif %} #}
+                    {% endif %}
                 <!-- Avatar -->
                 <a class="dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button"
                     data-mdb-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset ('images/user.png')}}" class="rounded-circle" height="25" alt="Error!" loading="lazy" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                    {# {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER')%} #}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF') or is_granted('ROLE_USER')%}
                     <li>
-                        <a class="dropdown-item nav-link" href="">Log out</a>
+                        <a class="dropdown-item nav-link" href="{{path('app_logout')}}">Log out</a>
                     </li>
-                    {# {% else %} #}
+                    {% else %}
                     <li>
-                        <a class="dropdown-item nav-link" href="">Log in</a>
+                        <a class="dropdown-item nav-link" href="/">Log in</a>
                     </li>
                     <li>
-                        <a class="dropdown-item nav-link" href="">Register</a>
+                        <a class="dropdown-item nav-link" href="/register">Register</a>
                     </li>
-                    {# {% endif %} #}
+                    {% endif %}
                 </ul>
             </div>
         </div>

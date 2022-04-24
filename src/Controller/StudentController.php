@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Repository\StudentRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -25,6 +26,9 @@ class StudentController extends AbstractController
             'students' => $students,
         ]);
     }
+    /**
+     * @IsGranted("ROLE_STAFF")
+     */
     #[Route('/student/add', name:'student_add')]
     public function studentAdd(ManagerRegistry $registry, Request $request): Response
     {
@@ -55,16 +59,21 @@ class StudentController extends AbstractController
             'studentForm' => $form
         ]);
     }
+    /**
+     * @IsGranted("ROLE_STAFF")
+     */
     #[Route('/student/edit/{id}', name: 'student_edit')]
     public function editStudent(ManagerRegistry $registry, Request $request, $id){
         $student = $registry->getRepository(Student::class)->find($id);
         $form = $this->createForm(StudentType::class, $student);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $file = $form['image']->getData();
+            if($file != null){
             $image = $student->getImage();
             $imgName = uniqid();
             $imgExtension = $image->guessExtension();
-            $imageName = $imgName . '_' . $imgExtension;
+            $imageName = $imgName . '.' . $imgExtension;
             try{
                 $image->move(
                     $this->getParameter('student_image'),
@@ -74,6 +83,7 @@ class StudentController extends AbstractController
                 
             }
             $student->setImage($imageName);
+        }
             $manager = $registry->getManager();
             $manager->persist($student);
             $manager->flush();
@@ -85,6 +95,9 @@ class StudentController extends AbstractController
             'student'=>$student
         ]);
     }
+    /**
+     * @IsGranted("ROLE_STAFF")
+     */
     #[Route('/student/delete/{id}', name: 'student_delete')]
     public function deleteStudent($id)
     {
@@ -111,4 +124,29 @@ class StudentController extends AbstractController
             );
         }
     }
+    #[Route('/search', name:'student_search')]
+    public function search(Request $request, StudentRepository $studentRepository){
+        $keyword = $request->get('name');
+        $students = $studentRepository->search($keyword);
+        return $this->render("student/index.html.twig",[
+            'students' => $students
+        ]);
+    }
+    #[Route('/asc', name: 'student_asc')]
+   public function sortAsc(StudentRepository $studentRepository) {
+       $students = $studentRepository->sortStudentAsc();
+       return $this->render("student/index.html.twig",
+                            [
+                                'students' => $students
+                            ]);
+   }
+
+   #[Route('/desc', name: 'student_desc')]
+   public function sortDesc(StudentRepository $studentRepository) {
+       $students = $studentRepository->sortStudentDesc();
+       return $this->render("student/index.html.twig",
+                            [
+                                'students' => $students
+                            ]);
+   }
 }

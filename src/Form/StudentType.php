@@ -18,10 +18,16 @@ class StudentType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-
+                'attr' => [
+                    'minlength' => 5,
+                    'maxlength' => 50
+                ]
             ])
             ->add('address', TextType::class, [
-
+                'attr' => [
+                    'minlength' => 10,
+                    'maxlength' => 100
+                ]
             ])
             ->add('image', FileType::class, [
                 'required' => false,
@@ -30,13 +36,6 @@ class StudentType extends AbstractType
             ])
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text'
-            ])
-            ->add('classrooms', EntityType::class, [
-                'required' => false,
-                'class' => Classroom::class,
-                'choice_label' => "name",
-                'multiple' => true,
-                'expanded' => false
             ])
         ;
     }

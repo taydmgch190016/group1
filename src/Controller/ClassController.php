@@ -22,6 +22,9 @@ class ClassController extends AbstractController
                 'classes' => $classes,
             ]);   
     }
+    /**
+     * @IsGranted("ROLE_STAFF")
+     */
     #[Route('/class/add', name: 'class_add')]
     public function classAddAction(Request $request)
     {
@@ -39,6 +42,9 @@ class ClassController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /**
+     * @IsGranted("ROLE_STAFF")
+     */
     #[Route('/class/edit/{id}', name: 'class_edit')]
     public function classEditAction(Request $request, $id)
     {
@@ -56,6 +62,9 @@ class ClassController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /**
+     * @IsGranted("ROLE_STAFF")
+     */
     #[Route('/class/delete/{id}', name: 'class_delete')]
     public function classDeleteAction($id)
     {

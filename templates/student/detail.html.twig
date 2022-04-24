@@ -27,12 +27,12 @@
                                             <td>{{ student.birthday | date('d/m/Y') }}</td>
 											<td>{{ student.address }}</td>
                                             <td>
-                                            {# {% for class in student.classrooms %}
+                                            {% for class in student.classrooms %}
 													<a href="{{path('class_detail',{'id':class.id})}}">
 													{{class.name}}
 													</a>
                                                     <br>
-												{% endfor %} #}
+												{% endfor %}
                                             </td>
 										</tr>
                                         </tbody>

@@ -47,32 +47,38 @@ class StudentRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Student[] Returns an array of Student objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Student[] Returns an array of Student objects
+      */
+    
+    public function sortStudentASC()
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
             ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Student
+    
+    public function sortStudentDESC()
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->orderBy('s.id', 'DESC')
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
+    
+    public function search($keyword)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.name LIKE :key')
+            ->setParameter('key', '%' . $keyword . '%')
+            ->orderBy('s.name', 'ASC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 }
