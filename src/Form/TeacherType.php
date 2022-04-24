@@ -2,11 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Teacher;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TeacherType extends AbstractType
 {
@@ -29,7 +31,7 @@ class TeacherType extends AbstractType
                 'label' => 'Number Phone',
                 'required' => true,
             ])
-            ->add('adress', TextType::class,[
+            ->add('address', TextType::class,[
                 'label' => 'Address',
                 'required' => true
             ])
@@ -37,6 +39,7 @@ class TeacherType extends AbstractType
                 'label' => 'Avatar',
                 'required' => true
             ])
+            ->add('save', SubmitType::class);
         ;
     }
 

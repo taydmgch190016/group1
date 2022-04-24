@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[Route('/teacher')]
 class TeacherController extends AbstractController
 {
     #[Route('/', name: 'teacher_index')]
@@ -40,7 +40,7 @@ class TeacherController extends AbstractController
         }
         //check xem teacher cần xóa có tồn tại tối thiểu 1 book hay không
         //nếu có thì không cho xóa và thông báo lỗi
-        else if (count($teacher->getBooks()) >= 1) {
+        else if (count($teacher->getCourses()) >= 1) {
             $this->addFlash("Error", "Can not delete this teacher !");
         }
         else {
@@ -51,7 +51,7 @@ class TeacherController extends AbstractController
         }
         return $this->redirectToRoute("teacher_index");
     }
-    #[Route('/add', name: 'add_teacher')]
+    #[Route('/add', name: 'teacher_add')]
     public function teacherAdd(Request $request, ManagerRegistry $registry){
         $teacher = new Teacher;
         $form = $this -> createForm(TeacherType::class, $teacher);
