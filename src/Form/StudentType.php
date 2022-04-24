@@ -32,6 +32,7 @@ class StudentType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('classrooms', EntityType::class, [
+                'required' => false,
                 'class' => Classroom::class,
                 'choice_label' => "name",
                 'multiple' => true,

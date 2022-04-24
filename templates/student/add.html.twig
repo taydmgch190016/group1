@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Add STUDENT {% endblock %}
+
+{% block body %}
+<div class="container-fluid col-8 mt-3">
+   <h3 class="text-center mt-5">ADD NEW STUDENT</h3>
+      {{ form_start(studentForm) }}
+        <div class="form-group">
+            {{ form_label(studentForm.image) }}
+            {{ form_widget(studentForm.image,
+               {
+                  'attr': { 'class' : 'form-control'}
+               })
+            }}
+         </div>
+         <div class="form-group">
+            {{ form_label(studentForm.name) }}
+            {{ form_widget(studentForm.name,
+               {
+                  'attr': { 'class' : 'form-control'}
+               })
+            }}
+         </div>
+         <div class="form-group">
+            {{ form_label(studentForm.address) }}
+            {{ form_widget(studentForm.address,
+               {
+                  'attr': { 'class' : 'form-control'}
+               })
+            }}
+         </div>
+         <div class="form-group">
+            {{ form_label(studentForm.birthday) }}
+            {{ form_widget(studentForm.birthday,
+               {
+                  'attr': { 'class' : 'form-control'}
+               })
+            }}
+         </div>
+         <div cl
+         <div class="form-group">
+            {{ form_label(studentForm.classrooms) }}
+            {{ form_widget(studentForm.classrooms,
+               {
+                  'attr': { 'class' : 'form-control'}
+               })
+            }}
+         </div>
+         <div class="form-group text-center mt-3 mb-4">
+            <button class="btn btn-primary" type="submit">ADD</button>
+         </div>
+      {{ form_end(studentForm) }}
+</div>
+{% endblock %}

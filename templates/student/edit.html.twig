@@ -1,0 +1,102 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Update Student {% endblock %}
+
+{% block body %}
+<div class="app">     
+        <div class="container mt-5 py-5 h-100">
+            <h4 class="titile mb-4"> Profile</h4>
+            {{ form_start(studentForm) }}  
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="profile-container">
+                        <div class="card">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <div class="flex-shrink-0">
+                                        <label class="form-label" for="image">Upload image</label>
+                                        <div><img src="{{asset('images/students/'~student.image)}}" width=200 height=250></div>
+                                          {{ form_label(studentForm.image) }}
+                                          {{ form_widget(studentForm.image,
+                                             {
+                                                'attr': { 'class' : 'form-control'}
+                                             })
+                                          }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span>Full name</span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        {{ form_label(studentForm.name) }}
+                                          {{ form_widget(studentForm.name,
+                                             {
+                                                'attr': { 'class' : 'form-control'}
+                                             })
+                                          }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span>Address</span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                     {{ form_label(studentForm.address) }}
+                                       {{ form_widget(studentForm.address,
+                                          {
+                                             'attr': { 'class' : 'form-control'}
+                                          })
+                                       }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span>Birthday</span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                     {{ form_label(studentForm.birthday) }}
+                                       {{ form_widget(studentForm.birthday,
+                                          {
+                                             'attr': { 'class' : 'form-control'}
+                                          })
+                                       }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span>Classrooms</span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                     {{ form_label(studentForm.classrooms) }}
+                                       {{ form_widget(studentForm.classrooms,
+                                          {
+                                             'attr': { 'class' : 'form-control'}
+                                          })
+                                       }}
+                                    </div>
+                                </div>
+                                <div class="block-center block-right">
+                                
+                                    <button type="submit" class="pl-4 pr-4 btn btn-dark">Save</button>                  
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <hr>              
+            </div>
+            {{ form_end(studentForm) }}
+        </div>
+     
+    </div>
+{% endblock %}
