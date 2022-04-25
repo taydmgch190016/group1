@@ -13,7 +13,7 @@
          {% if teacher.courses != null %}
             {% for course in teacher.courses %}
                <a class="text text-success" href="{{ path('teacher_detail' , {'id' : course.id })}}"> 
-                  {{ course.title }} 
+                  {{ course.name }} 
                </a>
                <br>
             {% endfor %}

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Course;
 use App\Entity\Teacher;
+use App\Form\CourseType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -51,5 +53,40 @@ class CourseController extends AbstractController
                             'teachers' => $Teachers
                         ]);
     }
-
+    #[Route('/add', name: 'course_add')]
+    public function courseAdd (Request $request, ManagerRegistry $registry, $id){
+        // $teachers = $registry->getRepository(Teacher::class)->findAll();
+        $course = $registry->getRepository(Course::class)->find($id);
+        $form = $this->createForm(CourseType::class, $course);
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $manager = $registry->getManager();
+            $manager->persist($course);
+            $manager->flush();
+            $this->addFlash("Success", "Add course succeed !");
+            return $this->redirectToRoute('course_index');
+        }
+        return $this->renderForm('course/add.html.twig',
+                                [
+                                    'courseForm' => $form
+                                ]);
+    }
+    #[Route('/edit/{id}', name: 'course_edit')]
+    public function courseEdit (Request $request, ManagerRegistry $registry, $id){
+        // $teachers = $registry->getRepository(Teacher::class)->findAll();
+        $course = $registry->getRepository(Course::class)->find($id);
+        $form = $this->createForm(CourseType::class, $course);
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $manager = $registry->getManager();
+            $manager->persist($course);
+            $manager->flush();
+            $this->addFlash("Success", "Edit course succeed !");
+            return $this->redirectToRoute('course_index');
+        }
+        return $this->renderForm('course/edit.html.twig',
+                                [
+                                    'courseForm' => $form
+                                ]);
+    }
 }

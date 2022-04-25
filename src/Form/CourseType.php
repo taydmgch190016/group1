@@ -27,7 +27,7 @@ class CourseType extends AbstractType
             ])
             ->add('description', TextType::class,[
                 'label' => 'Course Description',
-                'Required' => true,
+                'required' => true,
             ])
             ->add('coursefee', MoneyType::class,[
                 'label' => 'Course Fee',

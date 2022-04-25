@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid col-md-8 text-center">
+    <h2 class="text text-success mb-2">Book List</h2>
+    {% if is_granted('ROLE_ADMIN') %}
+       <a class="btn btn-primary mb-3" href="{{ path('course_add')}}">ADD</a>
+    {% endif %}
+    {# <form action="{{ path('course_search') }}" method="post">
+        <input type="search" name="title" id="">
+        <input type="submit" value="Search">
+    </form> #}
+    <h3 class="text text-danger mt-3">
+    {% set total = courses|length %}
+    {% if total <= 1 %}
+        Total course :
+    {% else %}
+        Total Courses :
+    {% endif %}
+        {{ total }}
+    </h3>
+    <table class="table table-hover mt-3">
+        <tr>
+            <th>Course Id
+                {# <select onchange="window.location.href=this.value">
+                    <option>Sort</option>
+                    <option value="{{ path('book_asc')}}">Ascending</option>
+                    <option value="{{ path('book_desc')}}">Descending</option>
+                </select>        #}
+            </th>
+            <th>Course Name</th>
+            <th>Coures Teacher    
+            </th>
+            <th>Course Description</th>
+            <th>Menu</th>
+        </tr>
+        {% for course in courses %}
+            <tr>
+                <td>{{ course.id }}</td>
+                <td>{{ course.name }}</td>
+                <th>
+                    {% if course.teacher != null %}
+                        <a class="text text-success text-decoration-none" href="{{ path('teacher_detail', {'id' : course.teacher.id })}}">
+                            {{ course.teacher.name }}
+                        </a>   
+                    {% endif %}
+                </th>
+                <td>
+                     <p>{{course.description}}</p>  
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="{{ path('course_edit', {'id' : course.id }) }}">EDIT</a>
+                    <a class="btn btn-danger" 
+                    href="{{ path('course_delete', {'id' : course.id}) }}"
+                    onclick="return confirm('Do you want to delete this course ?');"
+                    >DELETE</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
