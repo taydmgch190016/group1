@@ -2,19 +2,18 @@
 
 {% block body %}
 <div class="container-fluid col-md-8 text-center">
-   <h2 class="text text-success mb-3">{{ genre.name }}</h2>
+   <h2 class="text text-success mb-3">{{ teacher.name }}</h2>
    <div class="row">
       <div class="col">
-         <img src="{{ genre.image }}" width=250 height=250>
+         <img src="{{ teacher.image }}" width=250 height=250>
       </div>
       <div class="col">
-         <h5 class="text-info">{{ genre.description }}</h5>
          <br><br>
-         <h3> Book List </h3>
-         {% if genre.books != null %}
-            {% for book in genre.books %}
-               <a class="text text-success" href="{{ path('book_detail' , {'id' : book.id })}}"> 
-                  {{ book.title }} 
+         <h3> course List </h3>
+         {% if teacher.courses != null %}
+            {% for course in teacher.courses %}
+               <a class="text text-success" href="{{ path('teacher_detail' , {'id' : course.id })}}"> 
+                  {{ course.name }} 
                </a>
                <br>
             {% endfor %}

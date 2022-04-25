@@ -2,13 +2,15 @@
 
 namespace App\Form;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Course;
+use App\Entity\Teacher;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CourseType extends AbstractType
 {
@@ -25,7 +27,7 @@ class CourseType extends AbstractType
             ])
             ->add('description', TextType::class,[
                 'label' => 'Course Description',
-                'Required' => true,
+                'required' => true,
             ])
             ->add('coursefee', MoneyType::class,[
                 'label' => 'Course Fee',
