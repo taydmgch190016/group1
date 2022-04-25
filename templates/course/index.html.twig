@@ -33,11 +33,13 @@
             </th>
             <th>Course Description</th>
             <th>Menu</th>
+            
         </tr>
         {% for course in courses %}
             <tr>
                 <td>{{ course.id }}</td>
-                <td>{{ course.name }}</td>
+                <td>
+                 <a href="{{ path('course_detail', {'id' : course.id })}}  ">{{ course.name }}</a></td>
                 <th>
                     {% if course.teacher != null %}
                         <a class="text text-success text-decoration-none" href="{{ path('teacher_detail', {'id' : course.teacher.id })}}">
