@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/teacher')]
 class TeacherController extends AbstractController
 {
     #[Route('/', name: 'teacher_index')]
