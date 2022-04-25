@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="container-fluid col-md-8 text-center">
-    <h2 class="text text-success mb-2">Book List</h2>
+    <h2 class="text text-success mb-2">Courses List</h2>
     {% if is_granted('ROLE_ADMIN') %}
        <a class="btn btn-primary mb-3" href="{{ path('course_add')}}">ADD</a>
     {% endif %}

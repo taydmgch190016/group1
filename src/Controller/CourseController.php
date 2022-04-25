@@ -9,10 +9,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+#[Route('/course')]
 class CourseController extends AbstractController
 {
-    #[Route('/course', name: 'course_index')]
+    #[Route('/', name: 'course_index')]
     public function courseIndex (ManagerRegistry $registry) {
         $courses = $registry->getRepository(Course::class)->findAll();
         $teachers = $registry->getRepository(Teacher::class)->findAll();
