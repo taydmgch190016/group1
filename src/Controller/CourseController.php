@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Course;
 use App\Entity\Teacher;
 use App\Form\CourseType;
+use App\Repository\CourseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,9 +55,11 @@ class CourseController extends AbstractController
                         ]);
     }
     #[Route('/add', name: 'course_add')]
-    public function courseAdd (Request $request, ManagerRegistry $registry, $id){
+    public function courseAdd (Request $request, ManagerRegistry $registry){
         // $teachers = $registry->getRepository(Teacher::class)->findAll();
-        $course = $registry->getRepository(Course::class)->find($id);
+        
+        $teachers = $registry->getRepository(Teacher::class)->findALl();
+        $course = new Course;
         $form = $this->createForm(CourseType::class, $course);
         $form->handleRequest($request);
         if($form->isSubmitted()&&$form->isValid()){
@@ -68,7 +71,8 @@ class CourseController extends AbstractController
         }
         return $this->renderForm('course/add.html.twig',
                                 [
-                                    'courseForm' => $form
+                                    'courseForm' => $form,
+                                    'teachers' => $teachers
                                 ]);
     }
     #[Route('/edit/{id}', name: 'course_edit')]
@@ -88,5 +92,27 @@ class CourseController extends AbstractController
                                 [
                                     'courseForm' => $form
                                 ]);
+    }
+
+    #[Route('/asc', name: 'course_asc')]
+    public function sortAsc(CourseRepository $courseRepository, ManagerRegistry $registry) {
+    $teaechers = $registry->getRepository(Genre::class)->findAll();
+        $courses = $courseRepository->sortCourseAsc();
+        return $this->render("course/index.html.twig",
+                            [
+                                'courses' => $courses,
+                                'teaechers' => $teaechers
+                            ]);
+    }
+
+    #[Route('/desc', name: 'course_desc')]
+    public function sortDesc(CourseRepository $courseRepository, ManagerRegistry $registry) {
+    $teachers = $registry->getRepository(Genre::class)->findAll();
+        $courses = $courseRepository->sortcourseDesc();
+        return $this->render("course/index.html.twig",
+                            [
+                                'courses' => $courses,
+                                'teachers' => $teachers
+                            ]);
     }
 }

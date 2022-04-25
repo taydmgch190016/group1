@@ -4,14 +4,11 @@
 <div class="container col-md-8 text-center">
    <h2 class="text-success mb-3"> {{ course.name }} </h2>
    <div class="row">
+
       <div class="col">
-         <img src="{{ asset('images/courses/'~course.image)}}" width=200 height=200>
-      </div>
-      <div class="col">
-         <h5 class="text-info">Author: {{ course.teacher }}</h5>
          <h5 class="text-warning">Teacher: 
             {% if course.teacher != null %}
-               <a class="text text-success" href="{{ path('genre_detail' , {'id' : course.genre.id})}}">
+               <a class="text text-success" href="{{ path('teacher_detail' , {'id' : course.teacher.id})}}">
                   {{ course.teacher.name }}
                </a>             
             {% endif %}

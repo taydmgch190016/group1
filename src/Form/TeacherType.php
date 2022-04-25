@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Course;
 use App\Entity\Teacher;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,6 +41,14 @@ class TeacherType extends AbstractType
                 'label' => 'Avatar',
                 'required' => true
             ])
+            ->add('courses', EntityType::class,[
+                'label' => 'Course',
+                'required' => false,
+                'class' => Course::class,
+                'choice_label' => 'name',
+                'multiple' => true,  
+                'expanded' => false
+            ])        
             ->add('save', SubmitType::class);
         ;
     }
