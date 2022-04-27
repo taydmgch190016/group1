@@ -35,10 +35,10 @@
 										<tbody style="text-align: center;">
 											{% for class in classes %}
 												<tr>
-													<td>{{class.id}}</td>
-													<td>
+													<th>{{class.id}}</th>
+													<th>
 														<a href="{{path('class_detail',{'id':class.id})}}">{{class.name}}</a>
-													</td>
+													</th>
 													{% if is_granted('ROLE_STAFF') %}
 														<td>
 															<a class="btn btn-info" href="{{path('class_edit',{'id':class.id})}}">
