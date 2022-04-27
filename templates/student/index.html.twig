@@ -7,7 +7,15 @@
 		<div class="container">
 			<div class="grid">
 				<div class="row">
-					<h1 class="text-uppercase text-center mt-3">Student list</h1>
+					<h1 class="text-warning text-center mt-3">Student list</h1>
+					<h5 class="text-uppercase text-center mt-3">
+					{% set total = students|length %}
+    				{% if total <= 1 %}
+        			Total student :
+    				{% else %}
+        			Total students :
+    				{% endif %}
+        			{{ total }}</h5>
 					<div class="function__mgt">
 						{% if is_granted('ROLE_STAFF') %}
 							<div class="function__mgt-add">
@@ -36,8 +44,16 @@
 												<th>NAME</th>
 												<th>Image</th>
 												{% if is_granted('ROLE_STAFF') %}
-													<th>Menu</th>
+												<th>Menu</th>
 												{% endif %}
+												<th>Class
+												<select onchange="window.location.href=this.value">
+            										<option value="">Filter</option>
+            										{% for c in classes %}
+            										<option value="{{path('student_filter', {'id' : c.id })}}">{{c.name}}</option>
+            										{% endfor %}
+            										</select>
+												</th>
 											</tr>
 										</thead>
 										<tbody style="text-align: center;">
@@ -62,6 +78,14 @@
 															</a>
 														</td>
 													{% endif %}
+													<th>{% for c in student.classrooms %}
+													{% if c != null %}
+                        							<a class="text text-success text-decoration-none" href="{{ path('class_detail', {'id' : c.id })}}">
+                            							{{ c.name }}
+														<br>
+													</a>   
+                    								{% endif %}
+													{% endfor %}</th>
 												</tr>
 											{% endfor %}
 										</tbody>

@@ -24,24 +24,23 @@
                                         </thead>
                                         <tbody style="text-align: center;">
                                            <tr>
-												<td>
+												<th>
                                                 {% for student in class.student %}
 													<a href="{{path('student_detail',{'id':student.id})}}">
 													{{student.name}}
 													</a>
                                                     <br>
 												{% endfor %}
-                                                </td>
-												<td>				
+                                                </th>
+												<th>				
                                                     {% for c in class.course %}       
-                                                        {# <a href="{{path('teacher_detail',{'id':c.teacher.id})}}">
-                                                        {{c.name}} 
-                                                        - {{c.teacher.name}}   
-                                                        </a>             #}
-                                                        {{c.name}}
+                                                        <a href="{{path('course_detail',{'id':c.id})}}">
+                                                        {{c.name}}</a>
+                                                        -<a href="{{path('teacher_detail',{'id':c.teacher.id})}}"> {{c.teacher.name}}   
+                                                        </a>            
                                                         <br>       
 											    	{% endfor %}
-												</td>
+												</th>
                                                 <td>{{class.student|length}}</td>
                                                 <td>{{class.course|length}}</td>
 											</tr>
